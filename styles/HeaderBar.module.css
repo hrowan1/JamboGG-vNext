@@ -1,0 +1,8 @@
+.headerSearch {
+    transform: scale(0.75) !important;
+    float: right;
+}
+
+.headerDiv {
+    height: 80px;
+}

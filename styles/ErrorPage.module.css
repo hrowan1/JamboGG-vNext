@@ -1,0 +1,13 @@
+.errorDiv {
+    display: flex;
+    color: white;
+    height: 60vh;
+    justify-content: center;
+    align-items: center;
+}
+
+.errorText {
+    font-size: 20px;
+    white-space: pre-line;
+    text-align: center;
+}

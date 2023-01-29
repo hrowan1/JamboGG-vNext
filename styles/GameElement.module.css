@@ -1,0 +1,253 @@
+.matchList {
+	margin: 10px;
+}
+
+
+.gameLi {
+	width: 700px;
+	height: 120px;
+	margin: auto;
+	border-radius: 5px;
+	border-width: 1px;
+	border-style: solid;
+	border-color: black;
+	display: flex;
+}
+
+.champSection {
+	display: grid;
+	grid-template-columns: 30px 50px 30px 50px;
+	grid-template-rows: 50px 30px;
+	justify-content: center;
+	margin-left: 10px;
+}
+
+.scoreSection {
+	margin-top: 10px;
+	margin-left: 50px;
+	display: block;
+	text-align: center;
+	width: 120px;
+}
+
+.dataSection {
+	margin: auto;
+	margin-left: 10px;
+	display: block;
+	justify-content: center;
+	text-align: center;
+}
+
+.summonerWrapper {
+	display: block;
+	padding-top: 10px;
+	justify-content: center;
+	text-align: center;
+}
+
+.summonerSpells {
+	grid-template-columns: 30px;
+	grid-template-rows: 30px 30px;
+	display: grid;
+	margin: auto;
+	width: 30px;
+	height: 60px;
+}
+
+.summonersPic {
+	width: 30px;
+	height: 30px;
+	border-radius: 7px;
+}
+
+.champPlayed {
+	border-radius: 50%; /* square -> circle */
+	border-style: solid;
+	border-width: 1px;
+	border-color: black;
+	height: 60px;
+	width: 60px;
+	margin-left: 15px;
+	margin-top: 10px;
+}
+
+.champAgainst {
+	border-radius: 50%;
+	border-style: solid;
+	border-width: 1px;
+	border-color: black;
+
+	align-self: center;
+	margin-left: 30px;
+	margin-top: 25px;
+	height: 40px;
+	width: 40px;
+}
+
+.vsLbl {
+	align-self: center;
+	margin-left: 35px;
+	margin-top: 20px;
+}
+
+.itemSection {
+	padding-top: 30px;
+	display: block;
+	justify-content: center;
+	text-align: center;
+}
+
+.itemsDiv {
+	grid-template-columns: 30px 30px 30px 30px 30px 30px;
+	grid-template-rows: 30px;
+	display: grid;
+	margin: auto;
+	width: 120px;
+	height: 80px;
+}
+
+.itemPic {
+	width: 30px;
+	height: 30px;
+	border-radius: 7px;
+}
+
+.kdalbl {
+	font-size: 18px;
+}
+
+.dkda {
+	font-size: 15px;
+	margin-top: -20px;
+	color: #E1D9D1;
+	font-style: italic;
+}
+
+.hoverLabel:hover + .runeOverlay {
+	visibility: visible;
+	z-index: 1;
+}
+
+.runeImage {
+	margin-top: 15px;
+	height: 30px;
+	width: 30px;
+}
+
+.runeOverlay {
+	position: absolute;
+	height: 230px;
+	width: 200px;
+	visibility: hidden;
+	background-color: rgba(0,0,0,0.8);
+	border-style: solid;
+	border-color: black;
+	border-width: 1;
+	border-radius: 7px;
+}
+
+.titleDiv {
+	color: white;
+	font-weight: bold;
+	width: 100%;
+	height: 40px;
+	display: flex;
+	justify-content: center;
+}
+
+.runesDiv {
+	display: inline-block;
+	height: 60%;
+	width: 40%;
+	margin: 10px;
+}
+
+.runeImg {
+	height: 40px;
+	width: 40px;
+	margin-bottom: 10px;
+	border-style: solid;
+	border-color: lightgray;
+	border-width: 1px;
+	border-radius: 50%;
+}
+
+.shardsDiv {
+	margin-top: 10px;
+	height: 20px;
+	width: 100%;
+}
+
+.statImg {
+	height: 20px;
+	width: 20px;
+	border-style: solid;
+	border-color: lightgray;
+	border-width: 1px;
+	border-radius: 50%;
+	background-color: black;
+}
+
+.vl {
+	border-left: 2px solid;
+	height: 50px;
+	align-self: center;
+	margin-left: 10px;
+}
+
+.dropDown {
+	width: 50px;
+	height: 120px;
+	filter: brightness(80%);
+	cursor: pointer;
+}
+
+.gameStats {
+	padding-top: 30px;
+	margin-left: 10px;
+	margin-top: auto;
+	margin-bottom: auto;
+	width: 200px;
+	height: 100px;
+	text-align: center;
+}
+
+.statLabel {
+	font-size: 15px;
+	margin-top: -15px;
+	font-style: italic;
+}
+
+.gameLoss {
+	/*background-image: linear-gradient(to right,#e69192,#D2042D);*/
+	background-color: var(--lossColor);
+}
+
+.gameWin {
+	/*background-image: linear-gradient(to right,#ADD8E6, #0000FF);*/
+	background-color: var(--winColor);
+}
+
+.gameRemake {
+	background-color: #605C5C;
+}
+
+.gameWin > .dropDown {
+	background-color: var(--winColor);
+}
+
+.gameLoss > .dropDown {
+	background-color: var(--lossColor);
+}
+
+.gameWin > .champSection > .itemSection > .itemsDiv > .itemPic {
+	background-color: #777ECA;
+}
+
+.gameLoss > .champSection > .itemSection > .itemsDiv > .itemPic {
+	background-color: #FF0861;
+}
+
+.statList {
+	background-color: red;
+}

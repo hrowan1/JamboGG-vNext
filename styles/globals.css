@@ -1,0 +1,34 @@
+:root {
+  --mainColor: #333339;
+  --secColor: #4C4C54;
+  --winColor: #779ECA;
+  --lossColor: #FF3861;
+}
+
+body  {
+  background-color: var(--mainColor);
+}
+
+li {
+	list-style-type: none;
+}
+tr:hover {
+	background-color: #646469;
+}
+table {
+  color: white;
+	text-align: center;
+}
+th {
+	font-size: 13.5px;
+	padding: 3.5px;
+	font-weight: normal;
+	pointer-events: none;
+}
+
+input[type="text"], select {
+	outline: none;
+}
+input:focus::placeholder {
+	color:transparent
+}

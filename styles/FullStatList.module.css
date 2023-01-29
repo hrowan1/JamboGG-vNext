@@ -1,0 +1,52 @@
+.championDataList {
+    width: 1200px;
+}
+
+.listElement {
+    margin: 10px;
+}
+
+.statElement {
+    color: white;
+    border-radius: 10px;
+    width: 720px;
+	height: 70px;
+	margin: auto;
+	border-radius: 5px;
+	border-width: 1px;
+	border-style: solid;
+	border-color: black;
+	display: grid;
+    background-color: var(--secColor);
+    grid-template-columns: repeat(4, 80px) 160px repeat(3, 80px);
+}
+
+.champStatImage {
+    width: 50px;
+    aspect-ratio: 1;
+    border-radius: 5px;
+    border: white 1px solid;
+}
+
+.statDiv {
+    text-align: center;
+    white-space: pre-line;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.titleElement {
+    height: 45px;
+    font-size: 14px;
+}
+
+.titles {
+    bottom: 8px;
+    position: relative;
+}
+
+.stick {
+    position: sticky;
+    top: 0px;
+}

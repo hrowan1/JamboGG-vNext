@@ -1,0 +1,58 @@
+.champStatData {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    white-space: pre-line;
+    text-align: center;
+}
+
+.champStatImage {
+    width: 50px;
+    aspect-ratio: 1;
+    border-radius: 10px;
+    border: white 1px solid;
+}
+
+.wrBox {
+    display: grid;
+    grid-template-columns: 50% 50%;
+}
+
+.rankImageBox {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.rankImageMain {
+    width: 250px;
+    height: 150px;
+    background-position: center;
+    background-size: 800px;
+}
+
+.rankInfoBox {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+.rankText {
+    color: white;
+    white-space: pre-line;
+    line-height: 30px;
+    font-size: 20px;
+}
+
+.championList {
+    display: grid;
+    grid-template-columns: 15% 20% 15% 30% 20%;
+    margin: 10px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 450px;
+    height: 70px;
+    border-radius: 10px;
+    border: 1px solid black;
+    background-color: #333339;
+}

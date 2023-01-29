@@ -1,0 +1,39 @@
+.searchBar {
+    border-radius: 30px;
+    display: flex;
+    justify-content: center;
+    width: 800px;
+    margin: auto;
+    border: 3px solid black;
+    background-color: var(--secColor);
+}
+
+.searchBar {
+    margin: auto;
+}
+
+.search {
+    width: 650px;
+    height: 50px;
+    color: white;
+    text-align: center;
+    
+    background-color: transparent;
+    border-color: transparent;
+    font-size: 20px;
+}
+
+.serverSelect {
+    display: inline-flex;
+    width: 135px;
+    height: 50px;
+    text-align: center;
+    color: white;
+    background-color: transparent;
+    border-color: transparent;
+    font-size: 20px;
+}
+
+.serverSelect option {
+    color: black;
+}
