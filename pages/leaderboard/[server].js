@@ -18,7 +18,8 @@ export default function LeaderboardPage({topPlayers, time, server}) {
             <main className={[inter.className].join(" ")}>
                 <HeaderBar />
                 <BoardToolBar />
-                <Leaderboard server={server} data={topPlayers} />
+                {topPlayers.length > 1 ? 
+                    <Leaderboard server={server} data={topPlayers} /> : <div />}
                 <div className={styles.timeLabel}>Last updated at {time}</div>
                 <FooterBar />
             </main>
