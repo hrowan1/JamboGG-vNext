@@ -37,7 +37,7 @@ export async function getStaticProps({params}) {
             time,
             server,
         },
-        revalidate: 10,
+        revalidate: 600,
     }
 }
 
