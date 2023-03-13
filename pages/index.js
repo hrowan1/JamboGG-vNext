@@ -5,6 +5,8 @@ import HeaderBar from '@/components/HeaderBar'
 import FooterBar from '@/components/FooterBar'
 import SearchBar from '@/components/SearchBar'
 import styles from '@/styles/HomePage.module.css'
+import ToolMenu from '@/components/ToolMenu'
+import RouterBar from '@/components/RouterBar'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -18,6 +20,7 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className={inter.className}>
+        <RouterBar />
         <div className={styles.titleImage}>
           <Image src="/img/jambogg.png" width="600" height="225" />
         </div>

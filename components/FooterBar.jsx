@@ -1,3 +1,5 @@
+/// Footer bar for legal jibber jabber ///
+
 import styles from '@/styles/FooterBar.module.css'
 
 export default function FooterBar(props) {

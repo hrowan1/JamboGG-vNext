@@ -1,0 +1,30 @@
+.bar {
+    height: 100px;
+    width: 400px;
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.route {
+    width: 150px;
+    height: 50%;
+    background-color: var(--secColor);
+    border: 2px solid black;
+    margin: 30px;
+    color: white;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: linear 100ms;
+}   
+
+.route:hover {
+    transform: scale(1.05);
+    transition: linear 100ms;
+    cursor: pointer;
+}

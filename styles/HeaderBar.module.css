@@ -6,3 +6,11 @@
 .headerDiv {
     height: 80px;
 }
+
+.headerImage {
+    margin-left: 70px;
+}
+
+.headerImage:hover {
+    cursor: pointer
+}

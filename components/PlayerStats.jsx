@@ -1,5 +1,7 @@
+/// Player stat table in extended data tab ///
+
 import styles from '@/styles/FullGameRender.module.css'
-const patch = "13.1.1"
+const patch = '13.5.1'
 const championImage = 'http://ddragon.leagueoflegends.com/cdn/'+patch+'/img/champion/'
 
 export default function PlayerStatistics(props) {

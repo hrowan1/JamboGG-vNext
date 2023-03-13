@@ -1,9 +1,11 @@
+// Block which loads the ranked data of a given player when searched. This updates each time the player is searched, not saved to a database ///
+
 import styles from '@/styles/RankBlock.module.css'
 import Link from 'next/link'
 
 let emblemLink = "https://raw.communitydragon.org/latest/plugins/rcp-fe-lol-static-assets/global/default/images/ranked-emblem/emblem-"
 
-const patch = "13.1.1"
+const patch = '13.5.1'
 const championImage = 'http://ddragon.leagueoflegends.com/cdn/'+patch+'/img/champion/'
 
 
@@ -11,6 +13,11 @@ export default function RankBlock(props) {
 
     let champData = props.data[0]
     let rankData = props.data[1]
+    let unranked = false
+    if(!rankData.tier) {
+        rankData.tier = 'bronze'
+        unranked = true
+    }
     let background = `${emblemLink}${(rankData.tier).toLowerCase()}.png`
     
     let fullChampData = getTopChamps(champData)
@@ -50,11 +57,18 @@ export default function RankBlock(props) {
                 <div className={styles.rankImageBox}>
                     <div className={styles.rankImageMain} style={{backgroundImage: `url(${background})`}} />
                 </div>
-                <div className={styles.rankInfoBox}>
-                    <p className={styles.rankText}>{`${rankData.tier} ${rankData.rank}
-                         ${rankData.lp}lp
-                         ${rankData.wins}W / ${rankData.losses}L`}</p>
-                </div>
+                {
+                    !unranked ? 
+                        <div className={styles.rankInfoBox}>
+                            <p className={styles.rankText}>{`${rankData.tier} ${rankData.rank}
+                                ${rankData.lp}lp
+                                ${rankData.wins}W / ${rankData.losses}L`}
+                            </p>
+                        </div> : 
+                        <div className={styles.rankInfoBox}>
+                            <p className={styles.rankText}>UNRANKED</p>
+                        </div> 
+                }
             </div>
             <div className={styles.statBox}>
                 {championList}

@@ -12,7 +12,7 @@ import Head from "next/head"
 
 const inter = Inter({ subsets: ['latin'] })
 
-const summonerIcon = 'https://ddragon.leagueoflegends.com/cdn/13.1.1/img/profileicon/'
+const summonerIcon = 'https://ddragon.leagueoflegends.com/cdn/13.4.1/img/profileicon/'
 
 export default function Page({ summonerName, server }) {
   const [summonerData, setSummonerData] = useState('')
@@ -49,15 +49,19 @@ export default function Page({ summonerName, server }) {
   //connects with /getGames in API. This fetches all data necessary from either the database or the RiotAPI
   const getGameData = async(puuid, eId) => {
     const response = await fetch(`/api/getGames?puuid=${puuid}&region=${server}&eid=${eId}`)
-    const data = await response.json()
-    const gameCount = 10
-    let tempGameArray = []
-    for(let i = 0; i < gameCount; i++) {
-      let game = buildGameElementClass(data[0][i])
-      tempGameArray.push(<GameElement key={`GameElement${i}`}gameData={game} server={server} puuid={puuid}/>)
+    try {
+      const data = await response.json()
+      const gameCount = 10
+      let tempGameArray = []
+      for(let i = 0; i < gameCount; i++) {
+        let game = buildGameElementClass(data[0][i])
+        tempGameArray.push(<GameElement key={`GameElement${i}`}gameData={game} server={server} puuid={puuid}/>)
+      }
+      setGameData(tempGameArray)
+      setRankData(data[1])
+    } catch {
+      setGameData(<div className={styles.noRanked}>This summoner has not played any ranked games for us to track in Season 13!</div>)
     }
-    setGameData(tempGameArray)
-    setRankData(data[1])
   }
   // useEffect runs when this function is run (on page load..)
   useEffect(() => {

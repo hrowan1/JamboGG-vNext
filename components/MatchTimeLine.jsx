@@ -1,3 +1,5 @@
+// ingame timeline of a game played ///
+
 import styles from '@/styles/FullGameRender.module.css'
 
 export default function MatchTimeLine(props) {

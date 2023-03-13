@@ -1,3 +1,5 @@
+/// Mini search bar so the user doesn't have to click to the home page if they want to search a new user
+
 import styles from '@/styles/SearchBar.module.css'
 import { useState } from 'react'
 import { useRouter } from 'next/router'

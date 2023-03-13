@@ -94,6 +94,13 @@
     align-items: center;
 }
 
+.noRanked {
+    color: white;
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+}
 /* Pure CSS Loader */
 
 .loadWheel {

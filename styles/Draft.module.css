@@ -1,0 +1,70 @@
+.draftContainer {
+    margin-top: 0px;
+    height: 625px;
+    display: flex;
+    justify-content: center;
+}
+
+.imageContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 5px;
+}
+.draft {
+    height: 100%;
+    width: 125px;
+    display: grid;
+    grid-template-columns: 100%;
+    grid-template-rows: repeat(20%);
+}
+
+.champSelect {
+    border: 1px solid black;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.championContainer {
+    background-color: var(--secColor);
+    height: 100%;
+    width: 800px;
+    overflow: scroll;
+    scrollbar-width: none;
+}
+
+.blue {
+    background-color: var(--winColor);
+}
+
+.red {
+    background-color: var(--lossColor);
+}
+
+.championImage {
+    margin: 0px;
+    height: 100px;
+    aspect-ratio: 1;
+}
+
+.fullContainer {
+    display: grid;
+    grid-template-columns: 100%;
+    grid-template-rows: 8% 92%;
+}
+
+.searching {
+    background-color: var(--secColor);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.searchBar {
+    width: 500px;
+    height: 50%;
+    border: 1px solid white;
+    background-color: grey;
+    font-size: 20px;
+    text-align: center;
+}

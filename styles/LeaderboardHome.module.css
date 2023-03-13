@@ -1,0 +1,16 @@
+.main {
+    justify-content: center;
+    align-items: center;
+    display: flex;
+}
+
+.timeLabel {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    margin-top: 20px;
+    margin-bottom: -10px;
+    font-size: 25px;
+    color: white;
+}

@@ -1,6 +1,8 @@
+/// Build history tab in the extended data section ///
+
 import styles from '@/styles/FullGameRender.module.css'
 
-const patch = '13.1.1'
+const patch = '13.5.1'
 const itemImage = 'http://ddragon.leagueoflegends.com/cdn/'+patch+'/img/item/'
 
 export default function BuildHistory(props) {

@@ -1,11 +1,14 @@
+/// The main show of the program ///
+/// This creates each individual game element seen when you type in a name ///
+
 import {useSession, useState, useEffect} from 'react'
 import styles from '@/styles/GameElement.module.css'
 import Image from 'next/image'
-import Tippy from '@tippyjs/react';
+import Tippy from '@tippyjs/react'; //tooltips
 
 import FullGameRender from "../components/FullGameRender";
 
-const patch = '13.1.1'
+const patch = '13.5.1'
 const championImage = 'http://ddragon.leagueoflegends.com/cdn/'+patch+'/img/champion/'
 const runeImage = '/img/perk-images/Styles/'
 const statImage = '/img/perk-images/StatMods/'

@@ -4,3 +4,32 @@
     height: 80px;
     background-color: var(--secColor);
 }
+
+.generalButton {
+    width: 180px;
+    height: 50%;
+    background-color: var(--mainColor);
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: auto;
+    margin-bottom: auto;
+    border: 1px solid black;
+    border-radius: 10px;
+    transition: linear 100ms;
+}
+
+.draftButton {
+    margin-left: 50px;
+}
+
+.leaderboardButton {
+    margin-left: 320px;
+}
+
+.generalButton:hover {
+    transform: scale(1.05);
+    transition: linear 100ms;
+    cursor: pointer;
+}

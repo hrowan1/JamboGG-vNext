@@ -1,6 +1,16 @@
+/// NOTE FOR PROJECT MANAGER ///
+/// THIS IS RUNNING IN A CRON JOB IN SOME OTHER AREA ///
+/// USE THIS IF YOU WANT BUT IT IS A LONG OPERATION THAT IS SET TO CRON JOB EVERY 1 HOUR ///
+/// THE SIZE OF THIS WILL SCALE EXPONENTIALLY THE MORE PEOPLE ARE ADDED TO THE DATABASE ///
+
+
 const {MongoClient, ServerApiVersion} = require('mongodb')
 const databaseUri = process.env.DATABASEURI
 const APIKEY = process.env.APIKEY
+
+const serverSelect = {'euw': 'europe', 'na': 'americas'}
+const queueData = {'440': '5x5 Flex Queue', '420': '5x5 Solo Queue'}
+const {runeTrees, runes} = require('.//runesData')
 
 const client = new MongoClient(databaseUri, {
     useNewUrlParser: true,
@@ -9,59 +19,31 @@ const client = new MongoClient(databaseUri, {
 })
 const collection = client.db("JamboGG").collection("GameData")
 
-//servers sometimes have different end points
-const serverSelect = {'euw': 'europe', 'na': 'americas'}
-const queueData = {'440': '5x5 Flex Queue', '420': '5x5 Solo Queue'}
-const {runeTrees, runes} = require('.//runesData')
-
 export default async function handler(req, res) {
-    const puuid = req.query.puuid
-    const region = req.query.region
-	const eId = req.query.eid
+    let players = await collection.find({}).toArray()
 
-    let data = await checkDatabaseForSummoner(puuid, region, eId)
-    res.send(data)
-}
+    for(let i2 in players) {
+        let playerId = players[i2]['_id']
+        let playerMatch = players[i2].games[0].metadata.matchId
 
-//function that checks a serverless database in MongoDB, and checks if the summoner is in the database already. If not, it will be searched in.
-async function checkDatabaseForSummoner(puuid, region, eId) {
-	let statisticRes = await fetch(`https://${region}1.api.riotgames.com/lol/league/v4/entries/by-summoner/${eId}?api_key=${APIKEY}`)
-	let statisticData = await statisticRes.json()
-	let blockData = {}
-	for(let i in statisticData)
-	{
-		if(statisticData[i].queueType == 'RANKED_SOLO_5x5') {
-			blockData['wins'] = statisticData[i].wins
-			blockData['losses'] = statisticData[i].losses
-			blockData['tier'] = statisticData[i].tier
-			blockData['rank'] = statisticData[i].rank
-			blockData['lp'] = statisticData[i].leaguePoints
-		}
-	}
+        let response = await fetch(`https://europe.api.riotgames.com/lol/match/v5/matches/by-puuid/${playerId}/ids?api_key=${APIKEY}&type=ranked`)
+        let data = await response.json()
 
-    let playerData = await collection.find({_id: puuid}).toArray()
-    if(typeof playerData[0] === 'undefined') {
-        let matchData = await getMatchData(puuid, region)
-		let newRankData = await collection.find({_id: puuid}).toArray()
-		let rankData = await newRankData[0].championStats
-        return [matchData, [rankData, blockData]]
+        let newGames = 0
+        for(let i in data) {
+            if(data[i] == playerMatch) {
+                newGames = i
+            }
+        }
+        let dataUpdated = data.slice(0,newGames).reverse()
+        await updateDB(dataUpdated, 'euw', playerId, newGames)
     }
-    else {
-        return [playerData[0].games.slice(0,10),[playerData[0].championStats, blockData]]
-    }
+
+    res.status(200)
+    res.send('Data updated!')
 }
 
-async function getMatchData(puuid, region) {
-
-	let epochDate = 1673431200
-	let response = await fetch('https://'+serverSelect[region]+'.api.riotgames.com/lol/match/v5/matches/by-puuid/'+puuid+'/ids?start=0&startTime='+epochDate+'&type=ranked&count=100&api_key='+APIKEY)
-	let data = await response.json()
-	let gamesToSave = data.length
-	return parseAndAddToDB(data, region, puuid, gamesToSave, 'write')
-
-}
-
-async function parseAndAddToDB(data, region, puuid, gameAmount, mode) {
+async function updateDB(data, region, puuid, gameAmount) {
 
 	var gameData = {}
 
@@ -112,6 +94,7 @@ async function parseAndAddToDB(data, region, puuid, gameAmount, mode) {
 		}
 
 		let queueNum = matchData['info']['queueId']
+        console.log(queueNum, queueData[queueNum])
 		let queueType = queueData[queueNum]
 
 		var totalKills = {'true':0, 'false':0}
@@ -221,64 +204,27 @@ async function parseAndAddToDB(data, region, puuid, gameAmount, mode) {
 		let creepsInc = gameData[matchId].stats.creeps
 		let controlWardsInc = gameData[matchId].stats.controlWards
 
-		if(mode == 'write') {
-
-			await collection.updateOne(
-				{_id : puuid},
-				{
-					$push: {
-							'games' : {
-								$each : [gameData[matchId]],
-							},
-					},
-					$set : {
-						'region': region,
-					},
-					$inc: {
-						[`${dbPath}.gamesPlayed`] : 1,
-						[`${dbPath}.wins`] : isWin,
-						[`${dbPath}.losses`] : isLoss,
-						[`${dbPath}.kills`] : killInc,
-						[`${dbPath}.deaths`] : deathInc,
-						[`${dbPath}.assists`] : assistInc,
-						[`${dbPath}.damageDealt`] : damageDealtInc ,
-						[`${dbPath}.creeps`] : creepsInc ,
-						[`${dbPath}.controlWards`] : controlWardsInc,
-					}
-				},
-				{upsert: true,}
-			)
-		}
-		else if(mode == 'update') {
-			await collection.updateOne(
-				{_id : puuid},
-				{
-					$push: {
-						'games' : {
-							$each : [gameData[matchId]],
-							$position: 0,
-						},
-					},
-					$inc: {
-						[`${dbPath}.gamesPlayed`] : 1,
-						[`${dbPath}.wins`] : isWin,
-						[`${dbPath}.losses`] : isLoss,
-						[`${dbPath}.kills`] : killInc,
-						[`${dbPath}.deaths`] : deathInc,
-						[`${dbPath}.assists`] : assistInc,
-						[`${dbPath}.damageDealt`] : damageDealtInc ,
-						[`${dbPath}.creeps`] : creepsInc ,
-						[`${dbPath}.controlWards`] : controlWardsInc,
-					}
-				}
-			)
-		}
-	}
-
-	let returnArr = []
-	for(let ij = 0; ij<10; ij++) {
-		returnArr.push(gameData[Object.keys(gameData)[ij]])
-	}
-
-	return returnArr
+        await collection.updateOne(
+            {_id : puuid},
+            {
+                $push: {
+                    'games' : {
+                        $each : [gameData[matchId]],
+                        $position: 0,
+                    },
+                },
+                $inc: {
+                    [`${dbPath}.gamesPlayed`] : 1,
+                    [`${dbPath}.wins`] : isWin,
+                    [`${dbPath}.losses`] : isLoss,
+                    [`${dbPath}.kills`] : killInc,
+                    [`${dbPath}.deaths`] : deathInc,
+                    [`${dbPath}.assists`] : assistInc,
+                    [`${dbPath}.damageDealt`] : damageDealtInc ,
+                    [`${dbPath}.creeps`] : creepsInc ,
+                    [`${dbPath}.controlWards`] : controlWardsInc,
+                }
+            }
+        )
+    }
 }

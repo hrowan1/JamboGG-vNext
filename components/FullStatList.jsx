@@ -1,6 +1,8 @@
+// Stats of the searched player for the amount of games that are saved to their profile in the database
+
 import styles from '@/styles/FullStatList.module.css'
 
-const patch = "13.1.1"
+const patch = '13.5.1'
 const championImage = 'http://ddragon.leagueoflegends.com/cdn/'+patch+'/img/champion/'
 
 export default function FullStatList(props) {
@@ -59,6 +61,7 @@ export default function FullStatList(props) {
     )
 }
 
+// Sorts champions of a player in order of most played
 function SortChamps(data) {
     let sortArray = []
     for(let i in data) {

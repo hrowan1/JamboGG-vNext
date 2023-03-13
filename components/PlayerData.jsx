@@ -1,7 +1,10 @@
+// All of the players data and stats in a given game. This is NOT saved to a database ///////////
+
 import styles from '@/styles/FullGameRender.module.css'
 import Image from 'next/image'
+import { useRouter } from 'next/router'
 
-const patch = "13.1.1"
+const patch = '13.5.1'
 const championImage = 'http://ddragon.leagueoflegends.com/cdn/'+patch+'/img/champion/'
 const itemImage = 'http://ddragon.leagueoflegends.com/cdn/'+patch+'/img/item/'
 const summonerImage = '/img/summoners/'
@@ -27,9 +30,14 @@ export default function PlayerData(props) {
 }
 
 function Players(props) {
+    const router = useRouter()
     const data = props.data
     let reverse = `${props.team == 'redTeam' ? styles.rvr : ''}`
     let team = `${props.team == 'redTeam' ? styles.redTeam : styles.blueTeam}`
+
+    const pushToPage = (name) => {
+        router.push(`../euw/${name}`)
+    }
 
     return (
         <div className={[styles.extendPlayer, team, reverse].join(" ")}>
@@ -47,7 +55,7 @@ function Players(props) {
             </div>
             <div className={[styles.itemNameSection, reverse].join(" ")}>
                 <div className={styles.summonerNameSection}>
-                    <label className={styles.summonerNameLabel}>{data.name}</label>
+                    <label onClick={e => {pushToPage(data.name)}} className={styles.summonerNameLabel}>{data.name}</label>
                 </div>
                 <div className={styles.itemsSection}>
                     <img alt={`${data.items[0]!=0 ? data.items[0] : ''}`} src={`${data.items[0]!=0 ? itemImage+data.items[0]+'.png' : ''}`} className={styles.itemPic} />

@@ -23,9 +23,7 @@ export default function error() {
             <div>
               <Image src="/img/jambogg.png" width="600" height="225" />
               <p className={styles.errorText}> 
-                {`That user does not exist on that server. 
-                They may have changed their name or region.
-                Please check your spelling and try again.`}
+                {`Error 404! You've gotten lost...`}
               </p>
             </div>
           </div>

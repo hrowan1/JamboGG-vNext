@@ -1,0 +1,62 @@
+.toolBar {
+    display: flex;
+    margin: 0;
+    margin-top: 10px;
+    height: 80px;
+    background-color: var(--secColor);
+    justify-content: center;
+}
+
+.homeBar {
+    height: 50%;
+    width: 180px;
+    margin-top: auto;
+    margin-bottom: auto;
+    margin-left: 20px;
+    border: 1px solid white;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-size: 25px;
+    transition: linear 100ms;
+}
+
+.homeBar:hover {
+    cursor: pointer;
+    transform: scale(1.05);
+    transition: linear 100ms;
+}
+
+.serverBar {
+    height: 100%;
+    width: 600px;
+    margin-top: auto;
+    margin-bottom: auto;
+    margin-right: 20px;
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.server {
+    height: 50%;
+    width: 180px;
+    margin-top: auto;
+    margin-bottom: auto;
+    margin-right: 20px;
+    border: 1px solid white;
+    border-radius: 10px;
+    font-size: 25px;
+    transition: linear 100ms;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+}
+
+.server:hover {
+    cursor: pointer;
+    transform: scale(1.05);
+    transition: linear 100ms;
+}

@@ -1,4 +1,8 @@
-import {useSession, useState, useEffect} from 'react'
+// Renders the entire game when a user wants it //
+
+import {useSession, useState, useEffect} from 'react' //React states and effects to allow data to change without the entire DOM being reloaded
+// useEffect refires everytime the state is refreshed
+
 import styles from '@/styles/FullGameRender.module.css'
 import PlayerData from '../components/PlayerData.jsx'
 import PlayerStatistics from './PlayerStats.jsx'
