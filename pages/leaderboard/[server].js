@@ -45,6 +45,6 @@ export async function getStaticProps({params}) {
 export async function getStaticPaths() {
     return {
         paths: [{params: {server: 'euw'}}, {params: {server: 'na'}}],
-        fallback: false,
+        fallback: true,
     }
 }
