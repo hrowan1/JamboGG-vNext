@@ -18,8 +18,7 @@ export default function LeaderboardPage({topPlayers, time, server}) {
             <main className={[inter.className].join(" ")}>
                 <HeaderBar />
                 <BoardToolBar />
-                {topPlayers.length > 1 ? 
-                    <Leaderboard server={server} data={topPlayers} /> : <div />}
+                <Leaderboard server={server} data={topPlayers} />
                 <div className={styles.timeLabel}>Last updated at {time}</div>
                 <FooterBar />
             </main>
@@ -28,7 +27,7 @@ export default function LeaderboardPage({topPlayers, time, server}) {
 }
 
 export async function getStaticProps({params}) {
-    topPlayers = getLeaderboard(params.server)
+    const topPlayers = await getLeaderboard(params.server)
     let time = new Date().toJSON().slice(12,19)
     let server = params.server
 
@@ -60,10 +59,6 @@ async function getLeaderboard(region) {
         serverApi: ServerApiVersion.v1,
     })
 
-    const region = req.query.server
-    let data = await getLeaderboardData(region)    
-    res.send(data)
-
     const collection = client.db("JamboGG").collection(`Leaderboard-${region}`)
     let leaderboardData = await collection.find({}).toArray()
     let leaderboard = []
@@ -88,6 +83,5 @@ async function getLeaderboard(region) {
             'icon': sortedLeaderboard[i][2],
         }
     }
-
     return returnBoard
 }
