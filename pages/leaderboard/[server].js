@@ -27,7 +27,7 @@ export default function LeaderboardPage({topPlayers, time, server}) {
 }
 
 export async function getStaticProps({params}) {
-    const response = await fetch(`/api/getLeaderboard?server=${params.server}`)
+    const response = await fetch(`https://jambo-gg-git-main-hrowan1.vercel.app/api/getLeaderboard?server=${params.server}`)
     const topPlayers = await response.json()
     let time = new Date().toJSON().slice(12,19)
     let server = params.server
