@@ -31,7 +31,7 @@ export async function getStaticProps({params}) {
     try {
         const topPlayers = await response.json()
     } catch(err) {
-        throw err
+        console.log(err)
     }
     let time = new Date().toJSON().slice(12,19)
     let server = params.server
