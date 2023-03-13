@@ -28,13 +28,7 @@ export default function LeaderboardPage({topPlayers, time, server}) {
 }
 
 export async function getStaticProps({params}) {
-    const response = await fetch(`../pages/api/getLeaderboard?server=${params.server}`)
-    let topPlayers = {}
-    try {
-        topPlayers = await response.json()
-    } catch(err) {
-        console.log(err)
-    }
+    topPlayers = getLeaderboard(params.server)
     let time = new Date().toJSON().slice(12,19)
     let server = params.server
 
@@ -53,4 +47,47 @@ export async function getStaticPaths() {
         paths: [{params: {server: 'euw'}}, {params: {server: 'na'}}],
         fallback: false,
     }
+}
+
+async function getLeaderboard(region) {
+
+    const {MongoClient, ServerApiVersion} = require('mongodb')
+    const databaseUri = process.env.DATABASEURI
+
+    const client = new MongoClient(databaseUri, {
+        useNewUrlParser: true,
+        useUnifiedTopology: true,
+        serverApi: ServerApiVersion.v1,
+    })
+
+    const region = req.query.server
+    let data = await getLeaderboardData(region)    
+    res.send(data)
+
+    const collection = client.db("JamboGG").collection(`Leaderboard-${region}`)
+    let leaderboardData = await collection.find({}).toArray()
+    let leaderboard = []
+    for(let i = 0; i < 100; i++) {
+        leaderboard.push([leaderboardData[i]['_id'], leaderboardData[i]['points'], leaderboardData[i]['iconId']])
+        /*leaderboard[i] = {
+            'name' : leaderboardData[i]['_id'], 
+            'points': leaderboardData[i]['points'],
+            'icon': leaderboardData[i]['iconId'],
+        }*/
+    }
+
+    let sortedLeaderboard = leaderboard.sort(function(x, y) {
+        return x[1] - y[1]
+    })
+
+    let returnBoard = {}
+    for(let i in sortedLeaderboard.reverse()) {
+        returnBoard[i] = {
+            'name' : sortedLeaderboard[i][0], 
+            'points': sortedLeaderboard[i][1],
+            'icon': sortedLeaderboard[i][2],
+        }
+    }
+
+    return returnBoard
 }
